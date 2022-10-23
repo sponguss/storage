@@ -21,21 +21,65 @@ return {
                 Enabled=false,
                 Config={15,8.8,0,2,1,6},
                 ActivateAtStuds=35
-            }
+            },
+            Type="3D",
+            Image="",
+            UsePreset=""
         }
     end,
     runEntity=function(name)
+        if not entityTable[name] and isfile("Entities/config/"..name..".txt") then
+            entityTable[name]=game:GetService"HttpService":JSONDecode(readfile("Entities/config/"..name..".txt"))
+        end
+        if entityTable[name]["UsePreset"]~="" then
+            
+        end
         local entityObject=entityTable[name]
         local currentModel=entityObject.Model
         if type(entityObject.Model)=="string" then
             pcall(makefolder, "Entities")
+            pcall(makefolder, "Entities/Config")
             if not isfile("Entites/"..name..".txt") then
                 writefile("Entities/"..name..".txt", game:HttpGet(entityObject.Model))
             end
+            if not isfile("Entities/config/"..name..".txt") then
+                writefile("Entities/config/"..name..".txt", game:GetService"HttpService":JSONEncode(entityTable[name]))
+            end
             currentModel=game:GetObjects((getcustomasset or getsynasset)("Entities/"..name..".txt"))[1]
+            if typeof(currentModel)=="Instance" and currentModel:IsA("BasePart") then
+                local temp=Instance.new("Model", game:GetService"Teams")
+                temp.Name=currentModel.Name
+                currentModel.Parent=temp
+                currentModel=temp
+            end
+        elseif type(entityObject.Model)=="number" then
+            pcall(makefolder, "Entities")
+            pcall(makefolder, "Entities/Config")
+            if not isfile("Entities/config/"..name..".txt") then
+                writefile("Entities/config/"..name..".txt", game:GetService"HttpService":JSONEncode(entityTable[name]))
+            end
+            currentModel=game:GetObjects("rbxassetid://"..entityObject.Model)[1]
+            if typeof(currentModel)=="Instance" and currentModel:IsA("BasePart") then
+                Instance.new("Model")
+            end
+        end
+        if type(entityObject.Ambush.AmbienceMusic)=="string" then
+            pcall(makefolder, "Entities")
+            pcall(makefolder, "Entities/Sounds")
+            if not isfile(entityObject.Ambush.AmbienceMusic) then
+                local a=entityObject.Ambush.AmbienceMusic
+                writefile("Entities/Sounds/ambStart_"..name..(string.find(a, ".mp3") and ".mp3" or string.find(a, ".ogg") and ".ogg" or ".mp3"), game:HttpGet(entityObject.Ambush.AmbienceMusic))
+                local AmbienceSound=workspace.Ambience_Ambush:Clone()
+                AmbienceSound.Name="Ambience__"..name
+                AmbienceSound.SoundId=(getcustomasset or getsynasset)("Entities/Sounds/ambStart_"..name..".mp3")
+            else
+                local AmbienceSound=workspace.Ambience_Ambush:Clone()
+                AmbienceSound.Name="Ambience__"..name
+                AmbienceSound.SoundId=(entityObject.Ambush.AmbienceMusic)
+            end
         end
         local room_l=workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]
-        local room_f=(workspace.CurrentRooms:FindFirstChildOfClass("Model").Name=="0" and workspace.CurrentRooms["1"] or workspace.CurrentRooms:FindFirstChildOfClass("Model"))
+        local room_f=workspace.CurrentRooms:FindFirstChildOfClass("Model")
 
         currentModel.Parent=workspace
         currentModel:FindFirstChildOfClass("Part").CanCollide=false
