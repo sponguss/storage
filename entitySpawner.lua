@@ -1,3 +1,4 @@
+
 if not entityTable then
 	getgenv().entityTable = {}
 end
@@ -311,7 +312,27 @@ return {
                 Type = "3D",
                 Image = "",
                 UsePreset = "",
-            }
+            },
+            ["A-60"]={
+                Speed = 500,
+                BreakLights = true,
+                FlickerLenght = 3,
+                Model = 11362209150,
+                Height = 1.6,
+                Ambush = {
+                    Enabled = false
+                },
+                Sounds = { "Static" },
+                WaitTime = 2.5,
+                Shaking = {
+                    Enabled = true,
+                    Config = { 15, 8.8, 0, 2, 1, 6 },
+                    ActivateAtStuds = 35,
+                },
+                Type = "3D",
+                Image = "",
+                UsePreset = "",
+            } -- 11362209150
         }
         entityTable[name]=Presets[preset:lower()]
     end 
