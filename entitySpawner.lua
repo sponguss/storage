@@ -32,6 +32,8 @@ return {
         local room_f=(workspace.CurrentRooms:FindFirstChildOfClass("Model").Name=="0" and workspace.CurrentRooms["1"] or workspace.CurrentRooms:FindFirstChildOfClass("Model"))
 
         entityObject.Model.Parent=workspace
+        entityObject.Model:FindFirstChildOfClass("Part").CanCollide=false
+        
         entityObject.Model:MoveTo(room_f:WaitForChild("RoomStart").Position + Vector3.new(0,entityObject.Height,0))
         require(game.ReplicatedStorage.ClientModules.Module_Events).flickerLights(tonumber(room_l.Name), entityObject.FlickerLenght)
 
@@ -60,7 +62,7 @@ return {
                     if not room:FindFirstChild("Nodes") then continue end
         
                     local nodes=room.Nodes:GetChildren()
-                    local entityPart=entityObject.Model:FindFirstChildOfClass("BasePart")
+                    local entityPart=entityObject.Model:FindFirstChildOfClass("Part")
                     for _, node in pairs(nodes) do
                         local timeC = (math.abs((node.Position - entityPart.Position).Magnitude)) / entityObject.Speed
                         game:GetService("TweenService"):Create(entityPart, TweenInfo.new(timeC, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
@@ -75,7 +77,7 @@ return {
                     if not room:FindFirstChild("Nodes") then continue end
         
                     local nodes=room.Nodes:GetChildren()
-                    local entityPart=entityObject.Model:FindFirstChildOfClass("BasePart")
+                    local entityPart=entityObject.Model:FindFirstChildOfClass("Part")
                     for k=#nodes, 1, -1 do
                         local node=nodes[k]
                         local timeC = (math.abs((node.Position - entityPart.Position).Magnitude)) / entityObject.Speed
