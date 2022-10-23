@@ -293,7 +293,7 @@ return {
                 UsePreset = "",
             },
             rush={
-                Speed = 120,
+                Speed = 75,
                 BreakLights = true,
                 FlickerLenght = 1,
                 Model = 11361957916,
@@ -304,7 +304,7 @@ return {
                 Sounds = { "PlaySound", "Footsteps" },
                 WaitTime = 2.5,
                 Shaking = {
-                    Enabled = true,
+                    Enabled = false,
                     Config = { 15, 8.8, 0, 2, 1, 6 },
                     ActivateAtStuds = 35,
                 },
