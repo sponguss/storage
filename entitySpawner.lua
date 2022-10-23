@@ -49,8 +49,8 @@ return {
 
             local a=entityObject.Ambush.AmbienceMusic:Clone()
             a.Volume=2.3
-            a.PlayOnRemove=true
-            a:Destroy()
+            a:Play()
+            delay(10, function() a:Destroy() end)
 
             task.wait(entityObject.WaitTime)
     
