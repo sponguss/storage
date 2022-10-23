@@ -42,6 +42,7 @@ return {
             sounds[1]:Play(); sounds[2]:Play()
             
             local ogVol=sounds[1].Volume
+            task.wait()
             sounds[1].Volume=0
             game:GetService("TweenService"):Create(entityObject.Model:FindFirstChild(entityObject.Sounds[1], true), TweenInfo.new(6, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
                 Volume=ogVol
