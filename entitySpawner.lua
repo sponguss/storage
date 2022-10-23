@@ -59,7 +59,7 @@ return {
             repeat
                 local rooms=workspace.CurrentRooms:GetChildren()
                 for _, room in pairs(rooms) do
-                    if not room:FindFirstChild("Nodes") then continue end
+                    if not room:FindFirstChild("Nodes") or tonumber(room.Name)>tonumber(room_l.Name) then continue end
         
                     local nodes=room.Nodes:GetChildren()
                     local entityPart=entityObject.Model:FindFirstChildOfClass("Part")
@@ -94,7 +94,7 @@ return {
                 task.wait(entityObject.WaitTime)
             until cycles==rng
             task.wait(.5)
-            entityObject.Model:FindFirstChildOfClass("BasePart").Anchored=false; entityObject.Model:FindFirstChildOfClass("BasePart").CanCollide=false;
+            entityObject.Model:FindFirstChildOfClass("Part").Anchored=false; entityObject.Model:FindFirstChildOfClass("Part").CanCollide=false;
             room_l:WaitForChild("Door").ClientOpen:FireServer()
         else
             entityObject.Model:FindFirstChild(entityObject.Sounds[1], true):Play(); entityObject.Model:FindFirstChild(entityObject.Sounds[2], true):Play()
@@ -104,7 +104,7 @@ return {
                 if not room:FindFirstChild("Nodes") then continue end
     
                 local nodes=room.Nodes:GetChildren()
-                local entityPart=entityObject.Model:FindFirstChildOfClass("BasePart")
+                local entityPart=entityObject.Model:FindFirstChildOfClass("Part")
                 for _, node in pairs(nodes) do
                     local timeC = (math.abs((node.Position - entityPart.Position).Magnitude)) / entityObject.Speed
                     game:GetService("TweenService"):Create(entityPart, TweenInfo.new(timeC, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
