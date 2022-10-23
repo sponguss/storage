@@ -23,10 +23,10 @@ return {
         local entityObject=entityTable[name]
         if type(entityObject.Model)=="string" then
             pcall(makefolder, "Entities")
-            if not isfile("Entites/"..name) then
-                writefile("Entities/"..name, game:HttpGet(entityObject.Model))
+            if not isfile("Entites/"..name..".txt") then
+                writefile("Entities/"..name..".txt", game:HttpGet(entityObject.Model))
             end
-            entityObject.Model=game:GetObjects((getcustomasset or getsynasset)("Entities/"..name))[1]
+            entityObject.Model=game:GetObjects((getcustomasset or getsynasset)("Entities/"..name..".txt"))[1]
         end
         local room_l=workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]
         local room_f=(workspace.CurrentRooms:FindFirstChildOfClass("Model").Name=="0" and workspace.CurrentRooms["1"] or workspace.CurrentRooms:FindFirstChildOfClass("Model"))
