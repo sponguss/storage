@@ -39,8 +39,12 @@ return {
 
         currentModel.Parent=workspace
         currentModel:FindFirstChildOfClass("Part").CanCollide=false
-        
-        currentModel:MoveTo(room_f:WaitForChild("RoomStart").Position + Vector3.new(0,entityObject.Height,0))
+        if not room_f:FindFirstChild("RoomStart") then
+            for _, room in pairs(workspace.CurrentRooms:GetChildren()) do
+                if room:FindFirstChild("RoomStart") then room_f=room; break end
+            end
+        end
+        currentModel:MoveTo(room_f:FindFirstChild("RoomStart").Position + Vector3.new(0,entityObject.Height,0))
         require(game.ReplicatedStorage.ClientModules.Module_Events).flickerLights(tonumber(room_l.Name), entityObject.FlickerLenght)
 
         if entityObject.Ambush.Enabled then
@@ -123,6 +127,7 @@ return {
             task.wait(.5)
             currentModel:FindFirstChildOfClass("Part").Anchored=false; currentModel:FindFirstChildOfClass("Part").CanCollide=false;
             room_l:WaitForChild("Door").ClientOpen:FireServer()
+            
         else
             currentModel:FindFirstChild(entityObject.Sounds[1], true):Play(); currentModel:FindFirstChild(entityObject.Sounds[2], true):Play()
             task.wait(entityObject.WaitTime)
