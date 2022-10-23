@@ -297,7 +297,7 @@ return {
                 BreakLights = true,
                 FlickerLenght = 1,
                 Model = 11361957916,
-                Height = 5,
+                Height = 3.2,
                 Ambush = {
                     Enabled = false
                 },
