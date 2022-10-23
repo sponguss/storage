@@ -49,6 +49,7 @@ return {
 
             local a=entityObject.Ambush.AmbienceMusic:Clone()
             a.Volume=2.3
+            a.Parent=workspace
             a:Play()
             delay(10, function() a:Destroy() end)
 
