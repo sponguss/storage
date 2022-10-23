@@ -146,7 +146,7 @@ return {
 				end)
 
 				camShake:Start()
-				coroutine.create(function()
+				spawn(function()
 					while true do
 						if
 							(
@@ -166,7 +166,7 @@ return {
 			repeat
 				local rooms = workspace.CurrentRooms:GetChildren()
 				for _, room in pairs(rooms) do
-					if not room:FindFirstChild("Nodes") or tonumber(room.Name) > tonumber(room_l.Name) then
+					if room.Name==tostring(tonumber(room_l.Name)+1) or not room:FindFirstChild("Nodes") then
 						continue
 					end
 
