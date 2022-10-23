@@ -46,12 +46,6 @@ return {
                 writefile("Entities/config/"..name..".txt", game:GetService"HttpService":JSONEncode(entityTable[name]))
             end
             currentModel=game:GetObjects((getcustomasset or getsynasset)("Entities/"..name..".txt"))[1]
-            if typeof(currentModel)=="Instance" and currentModel:IsA("BasePart") then
-                local temp=Instance.new("Model", game:GetService"Teams")
-                temp.Name=currentModel.Name
-                currentModel.Parent=temp
-                currentModel=temp
-            end
         elseif type(entityObject.Model)=="number" then
             pcall(makefolder, "Entities")
             pcall(makefolder, "Entities/Config")
@@ -59,9 +53,13 @@ return {
                 writefile("Entities/config/"..name..".txt", game:GetService"HttpService":JSONEncode(entityTable[name]))
             end
             currentModel=game:GetObjects("rbxassetid://"..entityObject.Model)[1]
-            if typeof(currentModel)=="Instance" and currentModel:IsA("BasePart") then
-                Instance.new("Model")
-            end
+        end
+
+        if typeof(currentModel)=="Instance" and currentModel:IsA("BasePart") then
+            local temp=Instance.new("Model", game:GetService"Teams")
+            temp.Name=currentModel.Name
+            currentModel.Parent=temp
+            currentModel=temp
         end
         if type(entityObject.Ambush.AmbienceMusic)=="string" then
             pcall(makefolder, "Entities")
