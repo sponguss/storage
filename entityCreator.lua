@@ -69,7 +69,7 @@ return function(config)
     local entityModel=game:GetObjects((type(config.entityModel)=="string" and (getcustomasset or getsynasset)("customentity.txt") or "rbxassetid://"..tostring(config.entityModel)))[1]
     config.code.onModelWritingDone(entityModel)
     if entityModel:IsA("BasePart") then local temp=Instance.new("Model", game:GetService("Teams")); temp.Name=entityModel.Name; entityModel.Parent=temp; entityModel=temp end
-    local entityRoot=entityModel.PrimaryPart or entityModel:FindFirstAncestorWhichIsA("BasePart")
+    local entityRoot=entityModel.PrimaryPart or entityModel:FindFirstChildWhichIsA("BasePart")
     entityRoot.Anchored=true; entityRoot.CanCollide=false;
 
     local room_l = workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]
