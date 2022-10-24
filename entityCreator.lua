@@ -60,7 +60,7 @@ return function(config)
             end)
         end
     end)
-    config.Speed=75/100*config.Speed
+    config.speed=75/100*config.Speed
     config.code.onEntityConfig(config)
 
     pcall(writefile, "customentity.txt", game:HttpGet(config.entityModel))
