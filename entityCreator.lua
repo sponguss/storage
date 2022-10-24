@@ -66,7 +66,7 @@ return function(config)
     config.code.onEntityConfig(config)
 
     pcall(writefile, "customentity.txt", game:HttpGet(config.entityModel))
-    local entityModel=(game:GetObjects((type(config.entityModel)=="string" and "customentity.txt" or "rbxassetid://"..tostring(config.entityModel)))[1])
+    local entityModel=game:GetObjects((type(config.entityModel)=="string" and (getcustomasset or getsynasset)("customentity.txt") or "rbxassetid://"..tostring(config.entityModel)))[1]
     config.code.onModelWritingDone(entityModel)
     if entityModel:IsA("BasePart") then local temp=Instance.new("Model", game:GetService("Teams")); temp.Name=entityModel.Name; entityModel.Parent=temp; entityModel=temp end
     local entityRoot=entityModel.PrimaryPart or entityModel:FindFirstAncestorWhichIsA("BasePart")
