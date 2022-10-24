@@ -225,7 +225,7 @@ return function(config)
 
             local nodes = room.Nodes:GetChildren()
             for _, node in pairs(nodes) do
-                local timeC = (math.abs((node.Position - entityRoot.Position).Magnitude)) / config.Speed
+                local timeC = (math.abs((node.Position - entityRoot.Position).Magnitude)) / config.speed
                 game:GetService("TweenService")
                     :Create(entityRoot, TweenInfo.new(timeC, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
                         CFrame = CFrame.new(node.CFrame.X, node.CFrame.Y + config.Height, node.CFrame.Z),
