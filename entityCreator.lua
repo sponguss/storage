@@ -119,8 +119,8 @@ return function(config)
 
     
     local sounds = {
-        entityModel:FindFirstChild(entityModel.sounds[1], true),
-        entityModel:FindFirstChild(entityModel.sounds[2], true),
+        entityModel:FindFirstChild(config.sounds[1], true),
+        entityModel:FindFirstChild(config.sounds[2], true),
     }
     sounds[1]:Play()
     sounds[2]:Play()
