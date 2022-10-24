@@ -86,7 +86,7 @@ return function(config)
     end
 
     entityModel.Parent=workspace
-    entityModel:MoveTo(room_f.RoomStart.Position + Vector3.new(0,config.Height,0))
+    entityModel:MoveTo(room_f.RoomStart.Position + Vector3.new(0,config.height,0))
     config.code.onEntitySpawn(entityModel)
 
     local event; event=game:GetService"RunService".Heartbeat:Connect(function() -- mainly skidded from vynixu's code
@@ -165,7 +165,7 @@ return function(config)
                             {
                                 CFrame = CFrame.new(
                                     node.CFrame.X,
-                                    node.CFrame.Y + config.Height,
+                                    node.CFrame.Y + config.height,
                                     node.CFrame.Z
                                 ),
                             }
@@ -196,7 +196,7 @@ return function(config)
                             {
                                 CFrame = CFrame.new(
                                     node.CFrame.X,
-                                    node.CFrame.Y + config.Height,
+                                    node.CFrame.Y + config.height,
                                     node.CFrame.Z
                                 ),
                             }
@@ -228,7 +228,7 @@ return function(config)
                 local timeC = (math.abs((node.Position - entityRoot.Position).Magnitude)) / config.speed
                 game:GetService("TweenService")
                     :Create(entityRoot, TweenInfo.new(timeC, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {
-                        CFrame = CFrame.new(node.CFrame.X, node.CFrame.Y + config.Height, node.CFrame.Z),
+                        CFrame = CFrame.new(node.CFrame.X, node.CFrame.Y + config.height, node.CFrame.Z),
                     })
                     :Play()
                 config.code.onTween(entityModel)
