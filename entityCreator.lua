@@ -42,7 +42,8 @@ local DefaultConfig={
         onDespawn=function(entityModel) end,
         onRebound=function(entityModel) end,
         onEntityStart=function(entityModel) end,
-        onReboundFinish=function(entityModel) end
+        onReboundFinish=function(entityModel) end,
+        onHeartbeatFinish=function(entityModel) end
     },
     flashingLightsColor=BrickColor.Red()
 }
@@ -68,7 +69,24 @@ return function(config)
 
     if entityModel:IsA("BasePart") then local temp=Instance.new("Model", game:GetService("Teams")); temp.Name=entityModel.Name; entityModel.Parent=temp; entityModel=temp end
     local entityRoot=entityModel.PrimaryPart or entityModel:FindFirstAncestorWhichIsA("BasePart")
-    entityRoot.Anchored=true; entityRoot.CanCollide=true;
+    entityRoot.Anchored=true; entityRoot.CanCollide=false;
+
+    local room_l = workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]
+    local room_f = workspace.CurrentRooms:FindFirstChildOfClass("Model")
+
+    if not room_f:FindFirstChild("RoomStart") then
+        for _, room in pairs(workspace.CurrentRooms:GetChildren()) do
+            if room:FindFirstChild("RoomStart") then
+                room_f = room
+                break
+            end
+        end
+    end
+
+    entityModel.Parent=workspace
+    entityModel:MoveTo(room_f.RoomStart.Position + Vector3.new(0,config.Height,0))
+    config.code.onEntitySpawn(entityModel)
+
     local event; event=game:GetService"RunService".Heartbeat:Connect(function() -- mainly skidded from vynixu's code
         if config.killPlayer and not char:GetAttribute("Hiding") then
             local found = workspace:FindPartOnRayWithIgnoreList(Ray.new(root.Position, (entityRoot.Position - root.Position).Unit * 100), { entityModel })
@@ -92,23 +110,8 @@ return function(config)
             
             require(lp.PlayerGui.MainUI.Initiator.Main_Game).camShaker:ShakeOnce(table.unpack(config.shaking.config[2]))
         end
+        config.code.onHeartbeatFinish(entityModel)
     end)
-
-    local room_l = workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]
-    local room_f = workspace.CurrentRooms:FindFirstChildOfClass("Model")
-
-    if not room_f:FindFirstChild("RoomStart") then
-        for _, room in pairs(workspace.CurrentRooms:GetChildren()) do
-            if room:FindFirstChild("RoomStart") then
-                room_f = room
-                break
-            end
-        end
-    end
-
-    entityModel.Parent=workspace
-    entityModel:MoveTo(room_f.RoomStart.Position + Vector3.new(0,config.Height,0))
-    config.code.onEntitySpawn(entityModel)
 
     require(game:GetService("ReplicatedStorage").ClientModules.Module_Events).flickerLights(room_l, config.flickerLenght)
 
