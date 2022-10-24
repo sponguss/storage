@@ -44,9 +44,7 @@ local DefaultConfig={
         onEntityStart=function(entityModel) end,
         onReboundFinish=function(entityModel) end,
         onHeartbeatFinish=function(entityModel) end,
-        onModelWritingDone=function(entityModel)
-            
-        end
+        onModelWritingDone=function(entityModel) end
     },
     flashingLightsColor=BrickColor.Red()
 }
@@ -69,7 +67,7 @@ return function(config)
 
     pcall(writefile, "customentity.txt", game:HttpGet(config.entityModel))
     local entityModel=(game:GetObjects((type(config.entityModel)=="string" and "customentity.txt" or "rbxassetid://"..tostring(config.entityModel)))[1])
-
+    config.code.onModelWritingDone(entityModel)
     if entityModel:IsA("BasePart") then local temp=Instance.new("Model", game:GetService("Teams")); temp.Name=entityModel.Name; entityModel.Parent=temp; entityModel=temp end
     local entityRoot=entityModel.PrimaryPart or entityModel:FindFirstAncestorWhichIsA("BasePart")
     entityRoot.Anchored=true; entityRoot.CanCollide=false;
