@@ -80,7 +80,7 @@ return function(config)
         for _, room in pairs(workspace.CurrentRooms:GetChildren()) do
             if room:FindFirstChild("RoomStart") then
                 room_f = room
-                breakz
+                break
             end
         end
     end
