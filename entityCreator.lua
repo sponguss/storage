@@ -43,7 +43,10 @@ local DefaultConfig={
         onRebound=function(entityModel) end,
         onEntityStart=function(entityModel) end,
         onReboundFinish=function(entityModel) end,
-        onHeartbeatFinish=function(entityModel) end
+        onHeartbeatFinish=function(entityModel) end,
+        onModelWritingDone=function(entityModel)
+            
+        end
     },
     flashingLightsColor=BrickColor.Red()
 }
