@@ -1,7 +1,7 @@
 local lp=game:GetService"Players".LocalPlayer
 local char=lp.Character or lp.CharacterAdded:Wait()
 local hum=char:FindFirstAncestorOfClass("Humanoid")
-local root=hum.RootPart
+local root=hum.HumanoidRootPart
 
 local DefaultConfig={
     speed = 1,
