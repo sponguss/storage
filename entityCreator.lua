@@ -80,7 +80,7 @@ return function(config)
         for _, room in pairs(workspace.CurrentRooms:GetChildren()) do
             if room:FindFirstChild("RoomStart") then
                 room_f = room
-                break
+                breakz
             end
         end
     end
@@ -94,8 +94,8 @@ return function(config)
             local found = workspace:FindPartOnRayWithIgnoreList(Ray.new(root.Position, (entityRoot.Position - root.Position).Unit * 100), { entityModel })
             if found and found:IsDescendantOf(char) then
                 event:Disconnect()
-                game:GetService("ReplicatedStorage").GameStats["player_"..lp.Name].Total.DeathCause=entityModel.Name
-                game:GetService("ReplicatedStorage").GameStats["player_"..lp.Name].Total.DeathReason=entityModel.Name
+                game:GetService("ReplicatedStorage").GameStats["Player_"..lp.Name].Total.DeathCause.Value=entityModel.Name
+                game:GetService("ReplicatedStorage").GameStats["Player_"..lp.Name].Total.DeathReason.Value=entityModel.Name
                 hum.Health = 0
                 config.code.onPlayerKill(entityModel, lp)
 
